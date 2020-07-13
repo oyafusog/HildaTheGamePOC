@@ -1920,7 +1920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   follow: {fileID: 1958499604}
-  lerptime: 0.95
+  lerptime: 0.1
 --- !u!1 &1601965099
 GameObject:
   m_ObjectHideFlags: 0
