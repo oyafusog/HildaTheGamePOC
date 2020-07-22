@@ -16,7 +16,11 @@ public class PlayerController : MonoBehaviour {
 	bool mvrght = true;
 	public GameObject sprite;
 
+    private Animator animator;
+
     void Start() {
+        animator = GetComponentInChildren<Animator>();
+        animator.SetFloat("Speed", 0f);
     }
 
 
@@ -38,17 +42,26 @@ public class PlayerController : MonoBehaviour {
         if(Input.GetKey(KeyCode.RightArrow)) {
 			gameObject.transform.Translate(forward*Time.deltaTime*mvspd,Space.World);
 			mvrght = true;
+            animator.SetFloat("speed", 2f);
 		}
         if(Input.GetKey(KeyCode.LeftArrow)) {
 			gameObject.transform.Translate(back*Time.deltaTime*mvspd,Space.World);
 			mvrght = false;
-		}
+            animator.SetFloat("speed", 2f);
+        }
         if(Input.GetKey(KeyCode.UpArrow)) {
 			gameObject.transform.Translate(up*Time.deltaTime*mvspd,Space.World);
-		}
+            animator.SetFloat("speed", 2f);
+        }
         if(Input.GetKey(KeyCode.DownArrow)) {
 			gameObject.transform.Translate(down*Time.deltaTime*mvspd,Space.World);
-		}
+            animator.SetFloat("speed", 2f);
+        }
+
+        if(Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            animator.SetFloat("speed", 0f);
+        }
 
 		SpriteDirection();
 		SpriteLookAtCamera();
