@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour {
 			//Camera.main.transform.Translate( -Camera.main.transform.forward *Time.deltaTime,Space.World);
 			Camera.main.orthographicSize *= 1.1f;
 		}
-
-		if(Input.GetKeyDown(KeyCode.Space)) {
+        animator.SetFloat("speed", 0f);
+        if (Input.GetKeyDown(KeyCode.Space)) {
 
 		}
 
@@ -58,10 +58,6 @@ public class PlayerController : MonoBehaviour {
             animator.SetFloat("speed", 2f);
         }
 
-        if(Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            animator.SetFloat("speed", 0f);
-        }
 
 		SpriteDirection();
 		SpriteLookAtCamera();
