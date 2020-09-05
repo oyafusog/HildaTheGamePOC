@@ -5,22 +5,30 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	public float mvspd = 5;
+    public float jumpHeight = 2;
 
 	//adjusted movements
 	Vector3 forward = new Vector3(-1,0,0);
 	Vector3 back = new Vector3(1,0,0);
 	Vector3 up = new Vector3(0,0,-1);
 	Vector3 down = new Vector3(0,0,1);
+    Vector3 jump = new Vector3(0, 50, 0);
 
 	//sprite orientation
 	bool mvrght = true;
 	public GameObject sprite;
 
+    //sprite senses
+    bool isJumping = false;
+    Rigidbody rigidbody = new Rigidbody();
+    SphereCollider sphereCollider = new SphereCollider();
     private Animator animator;
 
     void Start() {
         animator = GetComponentInChildren<Animator>();
         animator.SetFloat("Speed", 0f);
+        animator.SetBool("jump", false);
+        rigidbody = GetComponent<Rigidbody>();
     }
 
 
@@ -35,9 +43,19 @@ public class PlayerController : MonoBehaviour {
 			Camera.main.orthographicSize *= 1.1f;
 		}
         animator.SetFloat("speed", 0f);
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        
+        //gameObject.transform.Translate(jump * Time.deltaTime * mvspd, Space.World);
 
-		}
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if( isJumping == false)
+            {
+                isJumping = true;
+                animator.SetBool("jump", true);
+                //gameObject.transform.Translate(jump * Time.deltaTime * mvspd, Space.World);
+                rigidbody.velocity = Vector3.up * jumpHeight;// * Time.deltaTime;
+            }
+            
+        }
 
         if(Input.GetKey(KeyCode.RightArrow)) {
 			gameObject.transform.Translate(forward*Time.deltaTime*mvspd,Space.World);
@@ -63,7 +81,17 @@ public class PlayerController : MonoBehaviour {
 		SpriteLookAtCamera();
     }
 
-	void SpriteLookAtCamera() {
+    //Check if player is touching ground
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("ground"))
+        {
+            animator.SetBool("jump", false);
+            isJumping = false;
+        }
+    }
+
+    void SpriteLookAtCamera() {
 		Vector3 correction = Camera.main.transform.eulerAngles;
 		correction.y = sprite.transform.eulerAngles.y;
 		if(!mvrght) {

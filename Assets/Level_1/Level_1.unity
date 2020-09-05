@@ -1561,6 +1561,7 @@ GameObject:
   - component: {fileID: 1215838371}
   - component: {fileID: 1215838372}
   - component: {fileID: 1215838374}
+  - component: {fileID: 1215838375}
   - component: {fileID: 1215838373}
   m_Layer: 0
   m_Name: Hilda
@@ -1611,8 +1612,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.35
+  m_Height: 0
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1215838374
@@ -1628,7 +1629,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mvspd: 5
+  jumpHeight: 3.5
   sprite: {fileID: 1339756432}
+--- !u!135 &1215838375
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215838370}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.38
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1279368755
 GameObject:
   m_ObjectHideFlags: 0
@@ -3353,7 +3368,7 @@ GameObject:
   - component: {fileID: 2554492992506771874}
   m_Layer: 0
   m_Name: Earth
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3386,7 +3401,7 @@ GameObject:
   - component: {fileID: 2736561585478077106}
   m_Layer: 0
   m_Name: Earth
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
