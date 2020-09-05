@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour {
 
     //sprite senses
     bool isJumping = false;
-    Rigidbody rigidbody;
+    Rigidbody rigidbody = new Rigidbody();
+    SphereCollider sphereCollider = new SphereCollider();
     private Animator animator;
 
     void Start() {
@@ -45,14 +46,10 @@ public class PlayerController : MonoBehaviour {
         
         //gameObject.transform.Translate(jump * Time.deltaTime * mvspd, Space.World);
 
-        if(sprite.transform.position.y < jump.y)
-        {
-            animator.SetBool("jump", false);
-        }
-
         if (Input.GetKeyDown(KeyCode.Space)) {
-            if( rigidbody.velocity.y == 0)
+            if( isJumping == false)
             {
+                isJumping = true;
                 animator.SetBool("jump", true);
                 //gameObject.transform.Translate(jump * Time.deltaTime * mvspd, Space.World);
                 rigidbody.velocity = Vector3.up * jumpHeight;// * Time.deltaTime;
@@ -84,7 +81,17 @@ public class PlayerController : MonoBehaviour {
 		SpriteLookAtCamera();
     }
 
-	void SpriteLookAtCamera() {
+    //Check if player is touching ground
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("ground"))
+        {
+            animator.SetBool("jump", false);
+            isJumping = false;
+        }
+    }
+
+    void SpriteLookAtCamera() {
 		Vector3 correction = Camera.main.transform.eulerAngles;
 		correction.y = sprite.transform.eulerAngles.y;
 		if(!mvrght) {
